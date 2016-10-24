@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="TweetPostCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetPostCell" rowHeight="100" id="KGk-i7-Jjw" customClass="TweetPostCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <frame key="frameInset" width="320" height="99"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="doge-600" translatesAutoresizingMaskIntoConstraints="NO" id="NUd-rb-FIC" userLabel="avatar">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="3LJ-6q-W1A"/>
+                            <constraint firstAttribute="width" constant="44" id="sJ3-nx-WY6"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXe-Eb-eKe">
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="author" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABh-1f-5zo">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="5UF-SW-4TM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VVj-fc-5XG">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="NUd-rb-FIC" firstAttribute="top" secondItem="ABh-1f-5zo" secondAttribute="top" id="0k7-1a-R1m"/>
+                    <constraint firstItem="VVj-fc-5XG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="52" id="2hU-gB-MQj"/>
+                    <constraint firstItem="NUd-rb-FIC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="MJD-Xi-Szh"/>
+                    <constraint firstItem="ABh-1f-5zo" firstAttribute="trailing" secondItem="OXe-Eb-eKe" secondAttribute="trailing" id="NVP-ri-ZAc"/>
+                    <constraint firstItem="VVj-fc-5XG" firstAttribute="top" secondItem="OXe-Eb-eKe" secondAttribute="bottom" constant="8" id="Ohx-o9-50i"/>
+                    <constraint firstItem="ABh-1f-5zo" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Pyu-rP-ySy"/>
+                    <constraint firstItem="ABh-1f-5zo" firstAttribute="leading" secondItem="OXe-Eb-eKe" secondAttribute="leading" id="QzC-rC-ze6"/>
+                    <constraint firstItem="OXe-Eb-eKe" firstAttribute="top" secondItem="ABh-1f-5zo" secondAttribute="bottom" constant="2" id="San-sk-jNv"/>
+                    <constraint firstItem="NUd-rb-FIC" firstAttribute="bottom" secondItem="OXe-Eb-eKe" secondAttribute="bottom" id="aPf-lj-bRp"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="VVj-fc-5XG" secondAttribute="trailing" id="deH-XT-wqm"/>
+                    <constraint firstItem="NUd-rb-FIC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="fok-Si-wAC"/>
+                    <constraint firstItem="ABh-1f-5zo" firstAttribute="leading" secondItem="NUd-rb-FIC" secondAttribute="trailing" constant="8" symbolic="YES" id="jPG-eL-jdT"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="author" destination="ABh-1f-5zo" id="aW7-hI-i7J"/>
+                <outlet property="avatar" destination="NUd-rb-FIC" id="3Vh-0L-Akt"/>
+                <outlet property="content" destination="VVj-fc-5XG" id="m3e-Yx-gRo"/>
+                <outlet property="date" destination="OXe-Eb-eKe" id="WJu-Ub-DcG"/>
+            </connections>
+            <point key="canvasLocation" x="35" y="71"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="doge-600" width="600" height="600"/>
+    </resources>
+</document>
