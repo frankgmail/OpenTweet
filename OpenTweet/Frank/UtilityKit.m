@@ -148,8 +148,8 @@
     NSError *error = nil;
     
     // Regex patterns
-    NSString *patternH = @"http\\://[a-zA-Z0-9\-\.]+\\.[a-zA-Z]{2,3}(/\\S*)?$";
-    NSString *patternS = @"https\\://[a-zA-Z0-9\-\.]+\\.[a-zA-Z]{2,3}(/\\S*)?$";
+    NSString *patternH = @"http\\://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}(/\\S*)?$";
+    NSString *patternS = @"https\\://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}(/\\S*)?$";
     NSString *patternA = @"@(\\w+)";
     NSString *patternCombo = [NSString stringWithFormat:@"%@|%@|%@", patternA, patternH, patternS];
     
