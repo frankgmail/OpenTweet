@@ -15,6 +15,7 @@
 		009C4C811D9F0CD600F0BC6C /* OpenTweetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009C4C801D9F0CD600F0BC6C /* OpenTweetTests.swift */; };
 		009C4C8C1D9F0CD600F0BC6C /* OpenTweetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009C4C8B1D9F0CD600F0BC6C /* OpenTweetUITests.swift */; };
 		009C4C9B1D9F0D4100F0BC6C /* timeline.json in Resources */ = {isa = PBXBuildFile; fileRef = 009C4C9A1D9F0D4100F0BC6C /* timeline.json */; };
+		101B20091DBF1A0500A1F9A8 /* profilePic.png in Resources */ = {isa = PBXBuildFile; fileRef = 101B20081DBF1A0500A1F9A8 /* profilePic.png */; };
 		101E5B041DBE798B00DBFCBE /* HomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 101E5B031DBE798B00DBFCBE /* HomeTableViewController.m */; };
 		101E5B081DBE7B3F00DBFCBE /* TweetPostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 101E5B061DBE7B3F00DBFCBE /* TweetPostCell.m */; };
 		101E5B091DBE7B3F00DBFCBE /* TweetPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 101E5B071DBE7B3F00DBFCBE /* TweetPostCell.xib */; };
@@ -56,6 +57,7 @@
 		009C4C8D1D9F0CD600F0BC6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		009C4C9A1D9F0D4100F0BC6C /* timeline.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = timeline.json; sourceTree = "<group>"; };
 		009C4C9D1D9F104800F0BC6C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		101B20081DBF1A0500A1F9A8 /* profilePic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profilePic.png; sourceTree = "<group>"; };
 		101E5AFD1DBE797900DBFCBE /* OpenTweet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenTweet-Bridging-Header.h"; sourceTree = "<group>"; };
 		101E5B021DBE798B00DBFCBE /* HomeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTableViewController.h; sourceTree = "<group>"; };
 		101E5B031DBE798B00DBFCBE /* HomeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewController.m; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				10C8E59F1DBE964600BDA17A /* DetailsTableViewController.xib */,
 				10C8E59C1DBE964600BDA17A /* UtilityKit.h */,
 				10C8E59D1DBE964600BDA17A /* UtilityKit.m */,
+				101B20081DBF1A0500A1F9A8 /* profilePic.png */,
 			);
 			path = Frank;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				009C4C761D9F0CD600F0BC6C /* LaunchScreen.storyboard in Resources */,
 				009C4C731D9F0CD600F0BC6C /* Assets.xcassets in Resources */,
 				101E5B091DBE7B3F00DBFCBE /* TweetPostCell.xib in Resources */,
+				101B20091DBF1A0500A1F9A8 /* profilePic.png in Resources */,
 				009C4C711D9F0CD600F0BC6C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -475,6 +479,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = HN9HEX8H76;
 				INFOPLIST_FILE = OpenTweet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.opentable.OpenTweet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -491,6 +496,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = HN9HEX8H76;
 				INFOPLIST_FILE = OpenTweet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.opentable.OpenTweet;
 				PRODUCT_NAME = "$(TARGET_NAME)";

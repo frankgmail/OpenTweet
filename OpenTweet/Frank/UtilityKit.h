@@ -7,10 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface UtilityKit : NSObject
 
 +(NSString*)convertISO8601Date:(NSString*)srcdate;
 +(NSString*)getTime:(NSDate*)sourceDate;
+
++(void)updateAvatar:(UIImageView*)avatarView fromElement:(id)element;
++(void)updateAvatar:(UIImageView*)avatarView fromElement:(id)element updateAvatarCache:(NSMutableDictionary*)avatarCache;
+
++(void)AnimateFadeInCell:(UITableViewCell*)cell;
++(NSMutableAttributedString*)decorateTags:(NSString *)stringWithTags;
 
 @end

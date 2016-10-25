@@ -70,8 +70,14 @@ static NSString * const kReusePostCell = @"TweetPostCell";
     id element = [_detailsArray objectAtIndex:indexPath.row];
     cell.author.text = [element objectForKey:@"author"];
     cell.date.text = [UtilityKit convertISO8601Date:[element objectForKey:@"date"]];
-    cell.content.text = [element objectForKey:@"content"];      // dynamically sized via autolayout
     [cell.content setFont:[UIFont systemFontOfSize:16.0f]];
+    
+    // hightlight mentions twitter @handle_name
+    cell.content.attributedText = [UtilityKit decorateTags:[element objectForKey:@"content"]];
+    
+    // load avatar asynchronously in background if exist
+    [UtilityKit updateAvatar:cell.avatar fromElement:element];
+    
     return cell;
 }
 
