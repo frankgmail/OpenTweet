@@ -61,3 +61,9 @@ What the assignment will NOT be judged on
 Happy coding!
 
 ![All the things](http://cdn.meme.am/instances/500x/57104950.jpg)
+
+Bug and Potential Enhancement
+1) Improve cell enlarge animation.  
+The avatar image disappear during tap animation. This is likely due to multiple:(a) Cell's prepareForReuse, (b) background loading of avatar image and (c) CGAffineTransformMakeScale which enlarge the cell frame and autoLayout took over to scaleDown to CGAffineTransformIdentity.  I attempted to implement imageCache to improve it but it is not satisfactory.  I would probably implement a different animation (shake the cell on user tap for example).
+2) Recursive search of tweets/replies
+Tweet#7 is a reply to tweet#4 which is a reply to tweet#42. Need to implement a recursive search.  A brute-force is to do span all threads for each recursive pass ( Order O(2^n) ). The time complexity can be improved by tracking and skipping prior thread for each recursion.  As I thought more, for a large tweet threads, this could get ugly since there can be n-reply to k-reply to ... the list goes on.  Need more time to figure out a better algo that can still perform well on a phone device without draining battery or overheating.
