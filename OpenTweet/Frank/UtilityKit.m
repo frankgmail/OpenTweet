@@ -38,53 +38,13 @@
     return timeString;
 }
 
-+(void)updateAvatar:(UIImageView*)avatarView fromElement:(id)element updateAvatarCache:(NSMutableDictionary*)avatarCache
-{
-    NSString *avatarString = [element objectForKey:@"avatar"];
-    // load avatar asynchronously in background if exist
-    if (avatarString) {
-        // extract from cache if present
-        if ([avatarCache valueForKey:@"avatar"] != nil) {
-            avatarView.image = [[UIImage alloc] initWithData:[avatarCache valueForKey:@"avatar"]];
-            
-        // else load from network on cache miss
-        } else {
-            NSURL *avatarURL = [NSURL URLWithString:avatarString];
-            NSURLRequest *avatarRequest = [NSURLRequest requestWithURL:avatarURL  cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20.0];
-            [NSURLConnection sendAsynchronousRequest:avatarRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                if (!data) {
-                    NSLog(@"%s: sendAynchronousRequest error: %@", __FUNCTION__, connectionError);
-                    return;
-                } else if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                    NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-                    if (statusCode != 200) {
-                        NSLog(@"%s: sendAsynchronousRequest status code != 200: response = %@", __FUNCTION__, response);
-                        return;
-                    } else {
-                        // update avatar
-                        avatarView.image = [[UIImage alloc] initWithData:data];
-                        avatarView.alpha = 0.2;
-                        [UIView animateWithDuration:1.0 animations:^{
-                            avatarView.alpha = 1;
-                            [avatarCache setObject:[[UIImage alloc] initWithData:data] forKey:[element objectForKey:@"avatar"]];
-                        }];
-                    }
-                }
-            }];
-        }
-        
-    // assign default profilePic is not found in tweet
-    } else {
-        avatarView.image = [UIImage imageNamed:@"profilePic.png"];
-    }
-}
-
-// The non-cache version.
-+(void)updateAvatar:(UIImageView*)avatarView fromElement:(id)element {
+// As of iOS 5, a shared NSURLCache is set for the application by default.
+// Per Foundation’s URL Loading System, request through NSURLConnection will be handled by NSURLCache.
++(void)updateCell:(TweetPostCell*)cell fromElement:(id)element {
     // load avatar asynchronously in background if exist
     if ([element objectForKey:@"avatar"]) {
         NSURL *avatarURL = [NSURL URLWithString:[element objectForKey:@"avatar"]];
-        NSURLRequest *avatarRequest = [NSURLRequest requestWithURL:avatarURL  cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20.0];
+        NSURLRequest *avatarRequest = [NSURLRequest requestWithURL:avatarURL  cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
         [NSURLConnection sendAsynchronousRequest:avatarRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
             if (!data) {
                 NSLog(@"%s: sendAynchronousRequest error: %@", __FUNCTION__, connectionError);
@@ -96,16 +56,12 @@
                     return;
                 } else {
                     // update avatar
-                    avatarView.alpha = 0.2;
-                    [UIView animateWithDuration:1.0 animations:^{
-                        avatarView.alpha = 1;
-                        avatarView.image = [[UIImage alloc] initWithData:data];
-                    }];
+                    cell.avatar.image = [[UIImage alloc] initWithData:data];
                 }
             }
         }];
     } else {
-        avatarView.image = [UIImage imageNamed:@"profilePic.png"];
+        cell.avatar.image = [UIImage imageNamed:@"profilePic.png"];
     }
 }
 

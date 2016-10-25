@@ -7,12 +7,16 @@
 //
 
 #import "TweetPostCell.h"
-
+#define kAvatarImageSize    44.0
 @implementation TweetPostCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+
+    self.avatar.layer.cornerRadius = kAvatarImageSize/2;
+
+    self.avatar.clipsToBounds = YES;
+    self.avatar.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -20,5 +24,4 @@
 
     // Configure the view for the selected state
 }
-
 @end

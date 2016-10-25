@@ -104,6 +104,7 @@ static NSString * const kReusePostCell = @"TweetPostCell";
 
 
 // Size height of cell based on the length of tweet content, font and font size
+// In conjunction with autolayout constraints on Avatar's UIImageView in XIB
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSString *content = [[_timelineArray objectAtIndex:indexPath.row ] objectForKey:@"content"];
@@ -134,44 +135,22 @@ static NSString * const kReusePostCell = @"TweetPostCell";
     // hightlight mentions twitter @handle_name
     cell.content.attributedText = [UtilityKit decorateTags:[element objectForKey:@"content"]];
     
-    // load avatar asynchronously in background if exist. cache the image data for faster reload
-    [UtilityKit updateAvatar:cell.avatar fromElement:element updateAvatarCache:_avatarCache];
-    
+    // load avatar Image, from NSURLCache if previously downloaded
+    [UtilityKit updateCell:cell fromElement:element];
+   
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TweetPostCell *cell = [tableView dequeueReusableCellWithIdentifier:kReusePostCell forIndexPath:indexPath];
-    
-    // repopulate cell data to avoid glitch due to cell-reuse issue
-    id element = [_timelineArray objectAtIndex:indexPath.row];
-    cell.author.text = [element objectForKey:@"author"];
-    cell.date.text = [UtilityKit convertISO8601Date:[element objectForKey:@"date"]];
-    [cell.content setFont:[UIFont systemFontOfSize:16.0f]];
-    cell.content.text = [element objectForKey:@"content"];      // dynamically sized via autolayout
-    
-    // hightlight mentions twitter @handle_name
-    cell.content.attributedText = [UtilityKit decorateTags:[element objectForKey:@"content"]];
-    
-    // load avatar image from cache
-    cell.avatar.image = [_avatarCache objectForKey:[element objectForKey:@"avatar"]];
     
     DetailsTableViewController *detailsTVC = [[DetailsTableViewController alloc] init];
     NSMutableArray *threadArray = [[NSMutableArray alloc] init];
     threadArray = [self extractTweetsFromSelectedCellAtIndex:indexPath];
     detailsTVC.detailsArray = threadArray;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        cell.contentView.transform = CGAffineTransformMakeScale(1.1, 1.1);
-        
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.1 animations:^{
-            cell.contentView.transform = CGAffineTransformIdentity;
-            [self.navigationController pushViewController:detailsTVC animated:YES];
-        }];
-    }];
+    [self.navigationController pushViewController:detailsTVC animated:YES];
+
 }
 
 #pragma mark - animate cell before loading

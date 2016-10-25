@@ -76,7 +76,7 @@ static NSString * const kReusePostCell = @"TweetPostCell";
     cell.content.attributedText = [UtilityKit decorateTags:[element objectForKey:@"content"]];
     
     // load avatar asynchronously in background if exist
-    [UtilityKit updateAvatar:cell.avatar fromElement:element];
+    [UtilityKit updateCell:cell fromElement:element];
     
     return cell;
 }

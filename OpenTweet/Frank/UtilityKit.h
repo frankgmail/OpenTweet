@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "TweetPostCell.h"
 
 @interface UtilityKit : NSObject
 
 +(NSString*)convertISO8601Date:(NSString*)srcdate;
 +(NSString*)getTime:(NSDate*)sourceDate;
 
-+(void)updateAvatar:(UIImageView*)avatarView fromElement:(id)element;
-+(void)updateAvatar:(UIImageView*)avatarView fromElement:(id)element updateAvatarCache:(NSMutableDictionary*)avatarCache;
++(void)updateCell:(TweetPostCell*)cell fromElement:(id)element;
 
 +(void)AnimateFadeInCell:(UITableViewCell*)cell;
 +(NSMutableAttributedString*)decorateTags:(NSString *)stringWithTags;
