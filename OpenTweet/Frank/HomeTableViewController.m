@@ -35,7 +35,7 @@ static NSString * const kReusePostCell = @"TweetPostCell";
 
 @interface HomeTableViewController ()
 @property(nonatomic, strong)NSMutableArray *timelineArray;
-@property(nonatomic, strong)NSMutableDictionary *avatarCache;   // cache avatar image to minimize network reload
+@property(nonatomic, strong)NSMutableArray *extractedArray;
 @end
 
 @implementation HomeTableViewController
@@ -51,6 +51,9 @@ static NSString * const kReusePostCell = @"TweetPostCell";
     // read in source data
     NSString *filePath = [[NSBundle mainBundle] pathForResource:kJsonFileName ofType:@"json"];
     _timelineArray = [[NSMutableArray alloc] initWithArray:[[self parseJsonTweets:filePath] objectForKey:kDataKey]];
+    
+    _extractedArray = [[NSMutableArray alloc] init];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -178,7 +181,8 @@ static NSString * const kReusePostCell = @"TweetPostCell";
 
 -(NSMutableArray*)extractTweetsFromSelectedCellAtIndex:(NSIndexPath*)indexPath
 {
-    NSMutableArray *extractedArray = [[NSMutableArray alloc] init];
+    if (_extractedArray)
+        [_extractedArray removeAllObjects];
     
     id element = [_timelineArray objectAtIndex:indexPath.row];
     NSString *inReplyTo = [element objectForKey:@"inReplyTo"];
@@ -186,22 +190,27 @@ static NSString * const kReusePostCell = @"TweetPostCell";
     // check if replyTo is present
     if ( inReplyTo && inReplyTo.length > 0) // validate inReplyTo exist
     {   // extract the selected reply and original tweet
-        [extractedArray addObject:[self addOriginalTweetWithId:inReplyTo]];
-        [extractedArray addObject:element];
         
+        // backtrack to find all parents
+        [self findParentGivenId:inReplyTo backtrackFromIndex:(int)indexPath.row];
+        [_extractedArray addObject:element];    // add the tapped tweet as last element in the expectedArray
+        
+//        [extractedArray addObject:[self addOriginalTweetWithId:inReplyTo]];
+//        [extractedArray addObject:element];
+//        
     } else {    // user taps on original tweet, extract all replies
-        [extractedArray addObject:element]; // Add original tweet as first element
+        [_extractedArray addObject:element]; // Add original tweet as first element
         NSString *originalId = [element objectForKey:@"id"];
         
         // Optimization:
         // Skip all tweets prior to original tweets leverage the chrono order
         for (int i=(int)indexPath.row; i < _timelineArray.count; i++) {
             if ([[[_timelineArray objectAtIndex:i] objectForKey:@"inReplyTo"] isEqualToString:originalId]) {
-                [extractedArray addObject:[_timelineArray objectAtIndex:i]];
+                [_extractedArray addObject:[_timelineArray objectAtIndex:i]];
             }
         }
     }
-    return extractedArray;
+    return _extractedArray;
 }
 
 -(id)addOriginalTweetWithId:(NSString*)searchId
@@ -214,6 +223,35 @@ static NSString * const kReusePostCell = @"TweetPostCell";
         }
     }
     return element;
+}
+
+// backTrack from given index of _timelineArray since parent Tweet occurs earlier in time
+// Optimization: startFrom index i to avoid expensive full array scan
+-(id)findParentGivenId:(NSString*)searchId backtrackFromIndex:(int)idx
+{
+    NSLog(@"backtrackfrom:%i searching for %@", idx, searchId);
+    for (int i=idx; i >=0; i--) {
+        id tweet = [_timelineArray objectAtIndex:i];
+        if ([[tweet objectForKey:@"id"] isEqualToString:searchId]) {
+            NSLog(@"--> found tweet[%i] with id= %@ matches searchId= %@", i, [tweet objectForKey:@"id"], searchId);
+            // check if the found tweet has grandparent, i.e. @"inReplyTo" exist
+            NSString *inReplyTo = [tweet objectForKey:@"inReplyTo"];
+            if ( inReplyTo && inReplyTo.length > 0)
+            { // validate inReplyTo exist
+                
+                // recursively backtrack up the timelineArray since grandParent should occur earlier
+                // Optimization: startFrom index i to avoid expensive full array scan
+                id grandParent = [self findParentGivenId:inReplyTo backtrackFromIndex:i];
+                if (grandParent) {
+                    //NSLog(@"grandParent Id:%@", [grandParent objectForKey:@"id"]);
+                    [_extractedArray addObject:grandParent];
+                    return grandParent;
+                }
+            } // end if replyTo exist
+            [_extractedArray addObject:tweet];
+        }
+    }
+    return nil;
 }
 
 @end

@@ -50,6 +50,22 @@
 				"content": "@ot_competitor Jealous you didn't get featured at the last keynote? <smirk>",
 				"inReplyTo": "00004",
 				"date": "2016-09-30T10:33:00-08:00"
-				}
+				},
+                {
+                "id": "00008",
+                "author": "@frank",
+                "avatar": "https://avatars1.githubusercontent.com/u/536608?v=3&s=460",
+                "content": "@frank reply to @olarivain's thread# 00007",
+                "inReplyTo": "00007",
+                "date": "2016-09-30T10:33:00-08:00"
+                },
+                {
+                "id": "00009",
+                "author": "@neal",
+                "avatar": "https://avatars1.githubusercontent.com/u/536608?v=3&s=460",
+                "content": "@neal's reply to @frank thread# 00008",
+                "inReplyTo": "00008",
+                "date": "2016-09-30T10:33:00-08:00"
+                }
 				]
 }
